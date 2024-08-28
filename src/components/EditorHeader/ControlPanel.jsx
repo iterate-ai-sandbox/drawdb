@@ -70,6 +70,7 @@ import { exportSQL } from "../../utils/exportSQL";
 import { databases } from "../../data/databases";
 import { jsonToMermaid } from "../../utils/exportAs/mermaid";
 import { isRtl } from "../../i18n/utils/rtl";
+import mixpanel from "mixpanel-browser";
 
 export default function ControlPanel({
   diagramId,
@@ -1460,7 +1461,10 @@ export default function ControlPanel({
           <Tooltip content={t("undo")} position="bottom">
             <button
               className="py-1 px-2 hover-2 rounded flex items-center"
-              onClick={undo}
+              onClick={() => {
+                undo();
+                mixpanel.track("undo clicked");
+              }}
             >
               <IconUndo
                 size="large"
@@ -1471,7 +1475,10 @@ export default function ControlPanel({
           <Tooltip content={t("redo")} position="bottom">
             <button
               className="py-1 px-2 hover-2 rounded flex items-center"
-              onClick={redo}
+              onClick={() => {
+                redo();
+                mixpanel.track("redo clicked");
+              }}
             >
               <IconRedo
                 size="large"
@@ -1483,7 +1490,10 @@ export default function ControlPanel({
           <Tooltip content={t("add_table")} position="bottom">
             <button
               className="flex items-center py-1 px-2 hover-2 rounded"
-              onClick={() => addTable()}
+              onClick={() => {
+                mixpanel.track("add_table clicked");
+                addTable();
+              }}
             >
               <IconAddTable />
             </button>
@@ -1499,7 +1509,10 @@ export default function ControlPanel({
           <Tooltip content={t("add_note")} position="bottom">
             <button
               className="py-1 px-2 hover-2 rounded flex items-center"
-              onClick={() => addNote()}
+              onClick={() => {
+                mixpanel.track("add_note clicked");
+                addNote();
+              }}
             >
               <IconAddNote />
             </button>
@@ -1508,7 +1521,10 @@ export default function ControlPanel({
           <Tooltip content={t("save")} position="bottom">
             <button
               className="py-1 px-2 hover-2 rounded flex items-center"
-              onClick={save}
+              onClick={() => {
+                save();
+                mixpanel.track("save clicked");
+              }}
             >
               <IconSaveStroked size="extra-large" />
             </button>
@@ -1526,6 +1542,7 @@ export default function ControlPanel({
             <button
               className="py-1 px-2 hover-2 rounded text-xl -mt-0.5"
               onClick={() => {
+                mixpanel.track("theme button clicked");
                 const body = document.body;
                 if (body.hasAttribute("theme-mode")) {
                   if (body.getAttribute("theme-mode") === "light") {

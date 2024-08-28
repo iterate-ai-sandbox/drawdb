@@ -6,6 +6,7 @@ import SearchBar from "./SearchBar";
 import Empty from "../Empty";
 import TableInfo from "./TableInfo";
 import { useTranslation } from "react-i18next";
+import mixpanel from "mixpanel-browser";
 
 export default function TablesTab() {
   const { tables, addTable } = useDiagram();
@@ -17,7 +18,14 @@ export default function TablesTab() {
       <div className="flex gap-2">
         <SearchBar tables={tables} />
         <div>
-          <Button icon={<IconPlus />} block onClick={() => addTable()}>
+          <Button
+            icon={<IconPlus />}
+            block
+            onClick={() => {
+              mixpanel.track("add_table clicked");
+              addTable();
+            }}
+          >
             {t("add_table")}
           </Button>
         </div>

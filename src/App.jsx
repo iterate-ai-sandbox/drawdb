@@ -9,6 +9,9 @@ import LandingPage from "./pages/LandingPage";
 import SettingsContextProvider from "./context/SettingsContext";
 import { useSettings } from "./hooks";
 import NotFound from "./pages/NotFound";
+import mixpanel from "mixpanel-browser";
+
+mixpanel.init(import.meta.env.VITE_MIXPANEL_TOKEN);
 
 export default function App() {
   return (
